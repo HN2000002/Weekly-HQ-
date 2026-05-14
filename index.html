@@ -18,48 +18,54 @@
       box-sizing: border-box;
     }
 
+    html,
     body {
       margin: 0;
+      width: 100%;
+      min-height: 100%;
       background: var(--bg);
       font-family: "Inter", sans-serif;
       color: var(--text);
+      overflow: hidden;
     }
 
     .weekly-widget {
       width: 100%;
-      padding: 10px 14px;
+      padding: 24px 28px;
       background: transparent;
     }
 
     .title-row {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 12px;
       line-height: 1;
+      white-space: nowrap;
     }
 
     .title {
       font-family: "Playfair Display", serif;
-      font-size: 32px;
+      font-size: clamp(52px, 8vw, 86px);
       font-weight: 600;
-      letter-spacing: -0.5px;
+      letter-spacing: -1px;
       color: var(--text);
     }
 
     .heart {
       font-family: "Inter", sans-serif;
-      font-size: 18px;
+      font-size: clamp(24px, 3vw, 36px);
       font-weight: 400;
       color: var(--heart);
-      transform: translateY(1px);
+      transform: translateY(3px);
     }
 
     .date-range {
-      margin-top: 8px;
-      font-size: 10px;
+      margin-top: 14px;
+      font-size: clamp(16px, 2.4vw, 26px);
       font-weight: 400;
       color: var(--muted);
       letter-spacing: -0.1px;
+      white-space: nowrap;
     }
   </style>
 </head>
@@ -77,7 +83,7 @@
   <script>
     function getMonday(date) {
       const d = new Date(date);
-      const day = d.getDay(); 
+      const day = d.getDay();
       const diff = d.getDate() - day + (day === 0 ? -6 : 1);
       return new Date(d.setDate(diff));
     }
