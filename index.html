@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --text: #2f211b;
+      --muted: #7f716a;
+      --heart: #d9a5a5;
+      --bg: transparent;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      font-family: "Inter", sans-serif;
+      color: var(--text);
+    }
+
+    .weekly-widget {
+      width: 100%;
+      padding: 10px 14px;
+      background: transparent;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      line-height: 1;
+    }
+
+    .title {
+      font-family: "Playfair Display", serif;
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      color: var(--text);
+    }
+
+    .heart {
+      font-family: "Inter", sans-serif;
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--heart);
+      transform: translateY(1px);
+    }
+
+    .date-range {
+      margin-top: 8px;
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--muted);
+      letter-spacing: -0.1px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="weekly-widget">
+    <div class="title-row">
+      <div class="title">Weekly HQ</div>
+      <div class="heart">♡</div>
+    </div>
+
+    <div class="date-range" id="dateRange"></div>
+  </div>
+
+  <script>
+    function getMonday(date) {
+      const d = new Date(date);
+      const day = d.getDay(); 
+      const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+      return new Date(d.setDate(diff));
+    }
+
+    function formatDate(date) {
+      return date.toLocaleDateString("en-GB", {
+        weekday: "long",
+        month: "long",
+        day: "numeric"
+      });
+    }
+
+    function updateWeeklyDateRange() {
+      const today = new Date();
+
+      const monday = getMonday(today);
+      const sunday = new Date(monday);
+      sunday.setDate(monday.getDate() + 6);
+
+      const year = sunday.getFullYear();
+
+      const dateText = `${formatDate(monday)} – ${formatDate(sunday)}, ${year}`;
+
+      document.getElementById("dateRange").textContent = dateText;
+    }
+
+    updateWeeklyDateRange();
+  </script>
+</body>
+</html>
